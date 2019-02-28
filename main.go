@@ -50,10 +50,7 @@ type GithubRepos []struct {
 }
 
 func main() {
-	// url := "https://api.github.com/orgs/ITV/repos?access_token=< ACCESS TOKEN >&page=3" // All repos listed on the page specified
-	// url := "https://api.github.com/users/ITV/repos"
-	// https://api.github.com/repos/ITV/puppet-consul/releases
-	// url := "https://github.com/ITV/puppet-profile-node_service/releases"
+	url := "https://api.github.com/users/ITV/repos"
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
@@ -64,21 +61,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//
-	// responseString := string(responseData)
-
-	// fmt.Println(responseString)
 
 	var repos GithubRepos
 	err = json.Unmarshal(responseData, &repos)
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
-	// fmt.Printf("%+v", repos)
-	for _, v := range repos {
-		// fmt.Printf("%s ", v.TagName)
-		intSlice := []string{v.TagName}
-		// first := intSlice[1:1]
-		fmt.Println(intSlice)
+	for i, v := range repos {
+		fmt.Println(i, v.Name)
 	}
 }
